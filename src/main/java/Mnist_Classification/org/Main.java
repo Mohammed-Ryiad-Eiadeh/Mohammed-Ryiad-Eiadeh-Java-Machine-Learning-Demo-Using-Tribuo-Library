@@ -27,9 +27,7 @@ import org.tribuo.math.kernel.Linear;
 import org.tribuo.math.optimisers.AdaGradRDA;
 
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
@@ -127,11 +125,6 @@ public class Main {
         var ClassProcessor = new FieldResponseProcessor<>("label", "nan", new LabelFactory());
 
         // return the row processor of the generated labels
-        return new RowProcessor<>(new LinkedList<>(),
-                null,
-                ClassProcessor,
-                new HashMap<>(),
-                FeatureProcessor,
-                Collections.emptySet());
+        return new RowProcessor.Builder<Label>().setRegexMappingProcessors(FeatureProcessor).build(ClassProcessor);
     }
 }
